@@ -1,0 +1,52 @@
+<!--
+    User Details Having second Highest Salary
+  -->
+<div class="container py-5" *ngIf="listStatus">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mb-5">2nd Highest Pocket Money</h2>
+            <div class="card card-outline-secondary">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-lg-9">
+                            <label class="col-lg-3 col-form-label form-control-label">{{secondHighestName}}</label>
+                            <label class="col-lg-3 col-form-label form-control-label">{{secondHighestPocketMoney}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+    List Of all users here
+  -->
+
+<div class="container">
+    <h2>List Of Students</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Pocket Money</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let std of studentsList ">
+                <td> <input type="checkbox" name="checkbox" value="{{std.id}}" (change)="checkvalue($event)" [disabled]="std.id == 1"
+                    /> </td>
+                <td> {{ std.id}}</td>
+                <td> {{std.fullName}} </td>
+                <td>{{std.pocket_money}}</td>
+            </tr>
+            <tr *ngIf="listStatus== false">
+                <td colspan="4">No Data Availeble yet</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

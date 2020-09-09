@@ -1,0 +1,20 @@
+RewriteEngine on
+
+RewriteRule ^([^\s]*)\s(.*)$ $1-$2 [E=whitespace:yes,N]
+
+# Then, once that is done, check if the whitespace variable has
+# been set and, if so, redirect to the new URI. This process ensures
+# that the URI is rewritten in a loop *internally* so as to avoid
+# multiple browser redirects.
+
+RewriteCond %{ENV:whitespace} yes
+RewriteRule (.*) /abc/$1 [R=302,L]
+
+
+
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA] 
+SetEnv CI_ENV "development"
+
