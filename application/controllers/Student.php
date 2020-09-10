@@ -21,6 +21,9 @@ use Restserver\Libraries\REST_Controller;
 require APPPATH . '/libraries/REST_Controller.php';
 
 class Student extends REST_Controller {
+	private $post = ''; // data sent to insert in db
+	private $student_data = '';  // get the data from db in
+
   function __construct() {
      parent::__construct(); 
      $this->load->model('StudentModel');
@@ -47,7 +50,7 @@ class Student extends REST_Controller {
 	  }else{
 	   $data = $this->input->post();
 	   
-	   $form_data = array(
+	   $this->post = array(
 	   	'first_name' => $data['first_name'],
 	   	'last_name' => $data['last_name'],
 	   	'email' => $data['email'],
@@ -56,7 +59,7 @@ class Student extends REST_Controller {
 	   );
 	   
 	   // Called to Model function having insert query
-	   $ins_res = $this->StudentModel->addStudent($form_data);
+	   $ins_res = $this->StudentModel->addStudent($this->post);
 	   $message = ['status' => true,'message' => 'added successfully!'];
 	   return $this->response($message, REST_Controller::HTTP_OK);
 	  }
@@ -71,8 +74,8 @@ class Student extends REST_Controller {
  public function getStudents_get(){
   try{
   	  // Called to Model function to get all data
-  	  $student_data = $this->StudentModel->getStudents();
-  	  $message = ['status' => true, 'data'=>$student_data];
+  	  $this->student_data = $this->StudentModel->getStudents();
+  	  $message = ['status' => true, 'data'=>$this->student_data];
 	  return $this->response($message, REST_Controller::HTTP_OK);
   } catch(Exception $e ) {
 	  log_message( 'error', $e->getMessage( ) . ' in ' . $e->getFile() . ':' . $e->getLine() );
