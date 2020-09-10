@@ -27,12 +27,13 @@ class Student extends REST_Controller {
   function __construct() {
      parent::__construct(); 
      $this->load->model('StudentModel');
+     $this->load->helper('security');
   }
   
   /* Insert the data to db of students*/
  public function addStudent_post() {
   try{
-   	  $this->form_validation->set_rules('first_name', 'first name', 'trim|required|alpha');
+   	  $this->form_validation->set_rules('first_name', 'first name', 'trim|required');
 	  $this->form_validation->set_rules('last_name', 'last name', 'trim|required|alpha');
 	  $this->form_validation->set_rules('email', 'email', 'trim|required|valid_email');
 	  $this->form_validation->set_rules('password', 'password', 'trim|required');
@@ -56,12 +57,23 @@ class Student extends REST_Controller {
 	   	'email' => $data['email'],
 	   	'pocket_money' => $data['pocket_money'],
 	   	'password' => md5($data['password'])
-	   );
+	   ); //59 - 61
+
+		$this->post = $this->security->xss_clean($this->post);
+
+	   //echo('<pre/>');
+	   //print_r($this->post); die();
 	   
 	   // Called to Model function having insert query
-	   $ins_res = $this->StudentModel->addStudent($this->post);
-	   $message = ['status' => true,'message' => 'added successfully!'];
-	   return $this->response($message, REST_Controller::HTTP_OK);
+	   $insert_res = $this->StudentModel->addStudent($this->post);
+	   if ($insert_res) {
+	   	$message = ['status' => true,'message' => 'added successfully!'];
+	    return $this->response($message, REST_Controller::HTTP_OK);
+	   }else{
+	   	$message = ['status' => false,'message' => 'something went wrong'];
+	    return $this->response($message, REST_Controller::HTTP_NON_AUTHORITATIVE_INFORMATION);
+	   }
+	   
 	  }
    } catch(Exception $e ) {
 	  log_message( 'error', $e->getMessage( ) . ' in ' . $e->getFile() . ':' . $e->getLine() );
