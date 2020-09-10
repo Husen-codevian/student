@@ -50,20 +50,14 @@ class Student extends REST_Controller {
 	    return $this->response($message, REST_Controller::HTTP_NON_AUTHORITATIVE_INFORMATION);       	
 	  }else{
 	   $data = $this->input->post();
-	   
 	   $this->post = array(
 	   	'first_name' => $data['first_name'],
 	   	'last_name' => $data['last_name'],
 	   	'email' => $data['email'],
 	   	'pocket_money' => $data['pocket_money'],
 	   	'password' => md5($data['password'])
-	   ); //59 - 61
-
-		$this->post = $this->security->xss_clean($this->post);
-
-	   //echo('<pre/>');
-	   //print_r($this->post); die();
-	   
+	   ); 
+	   $this->post = $this->security->xss_clean($this->post);
 	   // Called to Model function having insert query
 	   $insert_res = $this->StudentModel->addStudent($this->post);
 	   if ($insert_res) {
