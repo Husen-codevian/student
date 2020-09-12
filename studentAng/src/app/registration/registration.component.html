@@ -15,8 +15,7 @@
 
                             <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback error">
                                 <div *ngIf="f.first_name.errors.required">first name is required</div>
-                                <div *ngIf="f.first_name.errors?.forBiddenName">Number not allowed</div>
-                                <div *ngIf="f.first_name.errors?.forBiddenName_space">Space not allowed</div>
+                                <div *ngIf="f.first_name.errors.invalidString">Number & Special Characters are not allowed</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -27,8 +26,7 @@
 
                             <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback error">
                                 <div *ngIf="f.last_name.errors.required">last name is required</div>
-                                <div *ngIf="f.last_name.errors?.forBiddenName">Number not allowed</div>
-                                <div *ngIf="f.last_name.errors?.forBiddenName_space">Space not allowed</div>
+                                <div *ngIf="f.last_name.errors.invalidString">Number & Special Characters are not allowed</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -38,7 +36,7 @@
                             </div>
                             <div *ngIf="submitted && f.email.errors" class="invalid-feedback error">
                                 <div *ngIf="f.email.errors.required">email is required</div>
-                                <div *ngIf="f.email.errors?.pattern">Email ID must be a valid email address</div>
+                                <div *ngIf="f.email.errors.pattern">Email ID must be a valid email address</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -49,7 +47,7 @@
 
                             <div *ngIf="submitted && f.pocket_money.errors" class="invalid-feedback error">
                                 <div *ngIf="f.pocket_money.errors.required">pocket money is required</div>
-                                <div *ngIf="f.pocket_money.touched && f.pocket_money.errors.onlyNumber_req">Alphabates are not allowed</div>
+                                <div *ngIf="f.pocket_money.errors.invalidNumber">Alphabates are not allowed</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -70,7 +68,7 @@
 
                             <div *ngIf="submitted && f.age.errors" class="invalid-feedback error">
                                 <div *ngIf="f.age.errors.required">age is required</div>
-                                <div *ngIf="f.age.touched && f.age.errors?.onlyNumber_req">Alphabates are not allowed</div>
+                                <div *ngIf="f.age.errors.invalidNumber">Alphabates are not allowed</div>
                             </div>
 
                         </div>
@@ -81,7 +79,8 @@
                             </div>
                             <div *ngIf="submitted && f.city.errors" class="invalid-feedback error">
                                 <div *ngIf="f.city.errors.required">city is required</div>
-                                <div *ngIf="f.city.errors?.forBiddenName">Number not allowed</div>
+                                <div *ngIf="f.city.errors.invalidString">Number & Special Characters are not allowed</div>
+
                             </div>
                         </div>
                         <div class="form-group row">
@@ -92,7 +91,7 @@
 
                             <div *ngIf="submitted && f.state.errors" class="invalid-feedback error">
                                 <div *ngIf="f.state.errors.required">state is required</div>
-                                <div *ngIf="f.state.errors?.forBiddenName">Number not allowed</div>
+                                <div *ngIf="f.state.errors.invalidString">Number & Special Characters are not allowed</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -103,7 +102,7 @@
 
                             <div *ngIf="submitted && f.zip.errors" class="invalid-feedback error">
                                 <div *ngIf="f.zip.errors.required">zip code is required</div>
-                                <div *ngIf="f.zip.touched && f.zip.errors?.onlyNumber_req">Alphabates are not allowed</div>
+                                <div *ngIf="f.zip.errors.invalidNumber">Alphabates are not allowed</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -113,7 +112,7 @@
                             </div>
                             <div *ngIf="submitted && f.country.errors" class="invalid-feedback error">
                                 <div *ngIf="f.country.errors.required">country required</div>
-                                <div *ngIf="f.country.errors?.forBiddenName">Number not allowed</div>
+                                <div *ngIf="f.country.errors.invalidString">Number & Special Characters are not allowed</div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -126,9 +125,7 @@
                     </form>
                 </div>
             </div>
-
         </div>
         <!--/col-->
     </div>
-
 </div>
